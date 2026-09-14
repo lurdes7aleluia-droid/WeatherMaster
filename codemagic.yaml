@@ -5,7 +5,7 @@ workflows:
       flutter: stable
       xcode: latest
     scripts:
-      - name: Add iOS platform
+      - name: Add ios platform
         script: |
           flutter create . --platforms=ios
       - name: Verify project structure
@@ -14,9 +14,14 @@ workflows:
       - name: Get Flutter packages
         script: |
           flutter pub get
-      - name: Build iOS app for sideloading
+      - name: Build ios app for sideloading
         script: |
-          flutter build ipa --release --no-codesign
-    artifacts:
-      - build/ios/iphoneos/*.ipa
-      - build/ios/ipa/*.ipa
+          flutter build ios --release --no-codesign
+          cd build/ios/iphoneos
+          mkdir Payload
+          cd Payload
+          ln -s ../Runner.app Runner.app
+          zip -r ../WeatherMaster.ipa Payload
+          cd ../../..
+artifacts:
+  - build/ios/iphoneos/*.ipa
