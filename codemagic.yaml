@@ -23,5 +23,5 @@ workflows:
           ln -s ../Runner.app Runner.app
           zip -r ../WeatherMaster.ipa Payload
           cd ../../..
-artifacts:
-  - build/ios/iphoneos/*.ipa
+    artifacts:
+      - build/ios/iphoneos/WeatherMaster.ipa
