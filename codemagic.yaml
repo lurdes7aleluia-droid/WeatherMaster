@@ -1,1 +1,19 @@
-
+workflows:
+    ios-workflow:
+        name: Weather Master iOS Build
+        max_build_timeout: 40
+        environment:
+            flutter: stable
+            xcode: latest
+        scripts:
+            - name: Install iOS platform support
+              script: |
+                  flutter create . --platforms=ios
+            - name: Get Flutter packages
+              script: |
+                  flutter pub get
+            - name: Build iOS app for sideloading
+              script: |
+                  flutter build ipa --release --no-codesign
+        artifacts:
+            - build/ios/ipa/*.ipa
